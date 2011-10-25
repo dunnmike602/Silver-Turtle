@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="ftp://mldcomputing.co.uk/SilverTurtle" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="False" userName="mldcomputing" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAkNxGHlYALkCnz6oM54YYFAAAAAACAAAAAAAQZgAAAAEAACAAAAD2wbAiIPbZtaW7OOR2BeTB+1oAkjWo6vajwG2rflGa7QAAAAAOgAAAAAIAACAAAAAUhxYFyZqqMvjCqbKZXY3JGd+DHXRFF8pJxGLZDraIvCAAAAA7mxo5DO5ioOuevfNwpsc8SUILJGQLksB97Oj72Vw0BUAAAAAojEKMajjbTwfqjOZZAEXkOJi5eA9CpQ4lgfp+x/aXy4sZdZjUVyOGftPUF4RNugh+BVdqcGQ2wa6IK5n/dR6U" SelectedForPublish="True">
+    <file relUrl="SilverTurtleTestTestPage.html" publishTime="10/05/2011 21:49:49" />
+    <file relUrl="ClientBin/SilverTurtle.xap" publishTime="10/20/2011 23:08:58" />
+    <file relUrl="Index.html" publishTime="09/07/2011 20:30:52" />
+    <file relUrl="bin/SilverTurtle.Web.dll" publishTime="10/20/2011 22:59:34" />
+    <file relUrl="Web.config" publishTime="09/13/2011 22:51:39" />
+    <file relUrl="Silverlight.js" publishTime="09/07/2011 20:30:52" />
+    <file relUrl="bin/SilverTurtle.Web.pdb" publishTime="10/20/2011 22:59:34" />
+    <file relUrl="SilverTurtleTestTestPage.aspx" publishTime="10/05/2011 21:49:49" />
+    <file relUrl="SilverTurtleTestPage.aspx" publishTime="09/07/2011 20:30:52" />
+    <file relUrl="ClientBin/SilverTurtleTest.xap" publishTime="10/20/2011 23:08:59" />
+  </publishProfile>
+</publishData>

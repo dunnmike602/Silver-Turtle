@@ -1,0 +1,511 @@
+﻿<UserControl xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" 
+             x:Class="SilverTurtle.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
+    xmlns:uc="clr-namespace:SilverTurtle.Controls"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit" mc:Ignorable="d"
+    x:Name="ctrlMain" BorderThickness="0" Margin="0" Loaded="ControlLoaded" d:DesignHeight="500" d:DesignWidth="712"
+              SizeChanged="MainWindowOnSizeChanged">
+    <UserControl.Resources>
+        <DataTemplate x:Key="TurtleComboItem">
+            <StackPanel Orientation="Horizontal" Margin="1">
+                <Image VerticalAlignment="Center" Width="28" Source="{Binding Image}"  />
+                <TextBlock  Margin="5,0,2,0" VerticalAlignment="Center"  Text="{Binding Description}"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="MethodComboItem">
+            <sdk:Label Content="{Binding Name}">
+                <sdk:Label.Background>
+                    <SolidColorBrush Color="White"/>
+                </sdk:Label.Background>
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="{Binding FormattedDescription}"></ToolTip>
+                </ToolTipService.ToolTip>
+            </sdk:Label>
+        </DataTemplate>
+        <DataTemplate x:Key="ColorComboItem">
+            <sdk:Label Height="20" Width="100" Content="{Binding WellKnownColorName}">
+                <sdk:Label.Background>
+                    <SolidColorBrush Color="{Binding Color}"/>
+                </sdk:Label.Background>
+                <ToolTipService.ToolTip>
+                    <ToolTip Content="{Binding WellKnownColorName}"></ToolTip>
+                </ToolTipService.ToolTip>
+            </sdk:Label>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="#FF7070D4" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="40"></RowDefinition>
+            <RowDefinition MaxHeight="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition MaxHeight="65"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FF5F11DE">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <uc:ImageButton x:Name="btnNewProgram" Grid.Column="0" Grid.Row="0" Margin="5,8,8,8" 
+             IsEnabled="{Binding Model.EnableNewProgram}" Image="/SilverTurtle;component/Images/HP-Documents-Folder.png"
+             Text="New Program" ToolTip="Create a New Program.">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="StartNewProgram" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </uc:ImageButton>
+            <uc:ImageButton x:Name="btnSaveProgram" Grid.Column="1" Grid.Row="0" Margin="5,8,8,8" 
+             Image="/SilverTurtle;component/Images/CD-DVD_Drive.png"
+             Text="Save Program" ToolTip="Save the current program.">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="SaveProgram" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </uc:ImageButton>
+            <uc:ImageButton x:Name="btnLoadProgram" Grid.Column="2" Grid.Row="0" Margin="5,8,8,8" 
+             Image="/SilverTurtle;component/Images/Folder.png"
+             Text="Load Program" ToolTip="Load a program from a text file.">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction TargetObject="{Binding}" MethodName="LoadProgram" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </uc:ImageButton>
+            <uc:ImageButton x:Name="btnPrint" Grid.Column="3" Grid.Row="0" Margin="5,8,8,8" 
+             Image="/SilverTurtle;component/Images/HP-Printer.png"
+             Text="Print Screen" ToolTip="Prints the turtles graphics screen.">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <i:InvokeCommandAction  
+                                Command="{Binding PrintCommand}"   
+                                CommandParameter="{Binding ElementName=turtleCanvas}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </uc:ImageButton>
+            <Viewbox Grid.Column="4" Grid.Row="0" HorizontalAlignment="Stretch" MaxHeight="15">
+                <HyperlinkButton   NavigateUri="http://www.mldcomputing.co.uk/silverturtlenews" TargetName="_blank"
+                            Foreground="White" Margin="50,0,0,0">
+                    Version 1.0.0.0 © MLD Computing Limited 2011 - Click to visit website
+                </HyperlinkButton>
+            </Viewbox>
+        </Grid>
+           
+        <Grid Margin="0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".6*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width=".6*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width=".6*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <sdk:Label Margin="10,5,5,0" Grid.Row="0" Grid.Column="0" >Pen Colour:</sdk:Label>
+            <ComboBox Name="cmbForeColor"  Grid.Row="0" Grid.Column="1" Margin="0,5,0,3" MaxDropDownHeight="400" ItemsSource="{Binding TurtleColors}"
+                        ItemTemplate="{StaticResource ColorComboItem}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction  
+                                            Command="{Binding ElementName=ctrlMain, Path=DataContext.AddColorCommand}"   
+                                            CommandParameter="{Binding ElementName=cmbForeColor}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBox.DataContext>
+                    <Binding Source="{StaticResource Locator}" Path="TurtleColorViewModel" />
+                </ComboBox.DataContext>
+            </ComboBox>
+            <sdk:Label Margin="10,5,5,0" Grid.Row="0" Grid.Column="2" >Background Colour:</sdk:Label>
+            <ComboBox Name="cmbBackColor" Grid.Row="0" Grid.Column="3" Margin="0,5,10,3"   ItemsSource="{Binding TurtleColors}" 
+                        ItemTemplate="{StaticResource ColorComboItem}" MaxDropDownHeight="400">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction  
+                                            Command="{Binding ElementName=ctrlMain, Path=DataContext.AddColorCommand}"   
+                                            CommandParameter="{Binding ElementName=cmbBackColor}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ComboBox.DataContext>
+                    <Binding Source="{StaticResource Locator}" Path="TurtleColorViewModel" />
+                </ComboBox.DataContext>
+            </ComboBox>
+            <sdk:Label Margin="10,5,5,0" Grid.Row="0" Grid.Column="4">Commands:</sdk:Label>
+            <ComboBox Name="cmbCommand" Margin="0,5,10,3" Grid.Row="0" Grid.Column="5" 
+                          ItemsSource="{Binding TurtleMethods}"
+                          ItemTemplate="{StaticResource MethodComboItem}" MaxDropDownHeight="400">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction  
+                                             Command="{Binding ElementName=ctrlMain, Path=DataContext.AddMethodCommand}"   
+                                             CommandParameter="{Binding ElementName=cmbCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ComboBox.DataContext>
+                        <Binding Source="{StaticResource Locator}" Path="TurtleMethodViewModel" />
+                    </ComboBox.DataContext>
+                </ComboBox>
+            <sdk:Label Margin="10,5,5,0" Grid.Row="0" Grid.Column="6" >Turtles:</sdk:Label>
+            <ComboBox Name="cmbTurtles" Margin="0,5,10,3"  Grid.Row="0" Grid.Column="7"
+                          UseLayoutRounding="False" ItemsSource="{Binding Turtles}"
+                          ItemTemplate="{StaticResource TurtleComboItem}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction  
+                                             Command="{Binding ElementName=ctrlMain, Path=DataContext.SelectTurtleCommand}"   
+                                             CommandParameter="{Binding ElementName=cmbTurtles}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ComboBox.DataContext>
+                        <Binding Source="{StaticResource Locator}" Path="TurtleViewModel" />
+                    </ComboBox.DataContext>
+                </ComboBox>
+                 <CheckBox Name="chkShowTurtle" Margin="15,5,0,0" Grid.Row="0" Grid.Column="8" VerticalAlignment="Center" Content="Hide All Turtles and Grid">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction  
+                                            Command="{Binding ShowTurtleCommand}"   
+                                            CommandParameter="{Binding ElementName=chkShowTurtle}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </CheckBox>
+         </Grid>
+        <ScrollViewer Grid.Row="2" Grid.Column="0" Style="{StaticResource BlendScrollViewerStyle}" 
+                      VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" 
+                      BorderBrush="{x:Null}" x:Name="ScreenScroller">
+            <Canvas Name="turtleCanvas" Margin="0,0,0,0" HorizontalAlignment="Left" 
+                     Background="#FF320019" Height="1000" Width="1000">
+                <Canvas.Clip>
+                    <RectangleGeometry Rect="0,0,1000,1000"/>
+                </Canvas.Clip>
+                <Image Height="28" Name="imgTurtle"  
+                       Width="28" Source="/SilverTurtle;component/Images/turtle.png" Canvas.ZIndex="1" 
+                       Margin="0,0,0,0" />
+            </Canvas>
+        </ScrollViewer>
+        <Grid Background="#FF7070D4" ShowGridLines="False" Margin="0" Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="55"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+                <sdk:TabControl BorderThickness="0" Height="Auto"  Margin="15,15,15,0" Grid.Row="0" Grid.Column="0">
+                    <sdk:TabItem Header="Immediate" >
+                        <TextBox  Name="ImmediateText" Margin="2,10,2,2"  
+                                      TextAlignment="Left" FontStyle="Normal" FontWeight="Bold" 
+                                       AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" 
+                                       HorizontalContentAlignment="Stretch" Text="{Binding Path=Model.ImmediateText,Mode=TwoWay}"
+                            />
+                    </sdk:TabItem>
+                    <sdk:TabItem Header="Program" >
+                        <TextBox  Name="ValidProgramText" Margin="2,10,2,2"  
+                                      TextAlignment="Left" FontStyle="Normal" FontWeight="Bold" 
+                                       VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" IsReadOnly="True" 
+                                      HorizontalContentAlignment="Stretch" Text="{Binding Path=Model.ProcessedCommands}"/>
+                    </sdk:TabItem>
+                    <sdk:TabItem Header="Debug">
+                        <TextBox  Name="DebugWindow" Margin="2,10,2,2" TextAlignment="Left" FontStyle="Normal"
+                                      FontWeight="Bold"  AcceptsReturn="True" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" IsReadOnly="True" >
+                            <toolkit:ContextMenuService.ContextMenu>
+                                <toolkit:ContextMenu>
+                                    <toolkit:MenuItem   Header="Clear" >
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="Click">
+                                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="ClearDebugWindow" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <toolkit:MenuItem.Icon>
+                                            <Image Source="/SilverTurtle;component/Images/clearall.png"/>
+                                        </toolkit:MenuItem.Icon>
+                                    </toolkit:MenuItem>
+                                </toolkit:ContextMenu>
+                            </toolkit:ContextMenuService.ContextMenu>
+                        </TextBox>
+                    </sdk:TabItem>
+                    <sdk:TabItem Header="Functions" >
+                        <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Grid.Row="0" Grid.Column="0" Height="34" Name="cmbFunctions" Margin="5" VerticalAlignment="Top" 
+                                          HorizontalAlignment="Left" Width="250" FontSize="14" 
+                                          ItemsSource="{Binding FunctionSourceCodeItems}" DisplayMemberPath="Name">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction  
+                                                Command="{Binding DisplayFunctionTextCommand}"   
+                                                CommandParameter="{Binding ElementName=cmbFunctions}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        <TextBox  Name="FunctionCode" Grid.Row="1" Grid.Column="0" Margin="2,10,2,2" Text="{Binding Model.CurrentFunctionProgramText}"
+                                          TextAlignment="Left" FontStyle="Normal" FontWeight="Bold" 
+                                           VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" IsReadOnly="True" />
+                        </Grid>
+                    </sdk:TabItem>
+                    <sdk:TabItem Header="Errors" Name="tiErrors">
+                        <TextBox  Name="Errors" Margin="2,10,2,2" TextAlignment="Left" FontStyle="Normal"
+                                      FontWeight="Bold" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" 
+                                      TextWrapping="Wrap" IsReadOnly="True" Text="{Binding Path=Model.ProgramErrors}"/>
+                    </sdk:TabItem>
+                </sdk:TabControl>
+            <Grid Margin="0" Grid.Row="1" Grid.Column="0" MaxHeight="30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Name="btnCheck" Margin="5,5,0,5" Grid.Column="0" Grid.Row="0">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Check Program without executing."></ToolTip>
+                    </ToolTipService.ToolTip>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="CheckProgram" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Viewbox  Margin="4,0,4,0" HorizontalAlignment="Stretch" MaxHeight="20">
+                        <TextBlock Text="Check" VerticalAlignment="Center" />
+                    </Viewbox>
+                </Button>
+                <Button Name="btnGo" Margin="5,5,0,5" Grid.Column="1" Grid.Row="0">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Execute the program in the immediate window."></ToolTip>
+                    </ToolTipService.ToolTip>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="RunProgram" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Viewbox  Margin="4,0,4,0" HorizontalAlignment="Stretch" MaxHeight="20">
+                        <TextBlock Text="Run" VerticalAlignment="Center" />
+                    </Viewbox>
+                </Button>
+                <Button Name="btnEdit" Margin="5,5,0,5" Grid.Column="2" Grid.Row="0">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Edit the last program"></ToolTip>
+                    </ToolTipService.ToolTip>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="EditProgram" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Viewbox  Margin="4,0,4,0" HorizontalAlignment="Stretch" MaxHeight="20">
+                        <TextBlock Text="Edit" VerticalAlignment="Center" />
+                    </Viewbox>
+                </Button>
+                <Button Name="btnCancel" Margin="5,5,0,5" Grid.Column="3" Grid.Row="0">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Cancel all running programs."></ToolTip>
+                    </ToolTipService.ToolTip>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <ei:CallMethodAction TargetObject="{Binding}" MethodName="SetCancel" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Viewbox  Margin="4,0,4,0" HorizontalAlignment="Stretch" MaxHeight="20">
+                        <TextBlock Text="Cancel" VerticalAlignment="Center" />
+                    </Viewbox>
+                </Button>
+                </Grid>
+            </Grid>
+            <ScrollViewer Margin="2,0,0,0" Style="{StaticResource BlendScrollViewerStyle}" VerticalScrollBarVisibility="Hidden" 
+                          HorizontalScrollBarVisibility="Auto"  BorderBrush="{x:Null}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal" Margin="0,0,10,0" >
+                    <Button Name="DrawCircle" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawCircle,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the command to draw a circle."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Ellipse Height="30" Width="30" StrokeThickness="1" Stroke="Black"  Fill="Gold"/>
+                    </Button>
+                    <Button Name="DrawSquare" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawSquare,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the command to draw a square."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Rectangle Height="30" Width="30" StrokeThickness="1" Stroke="Black"  Fill="Gold"/>
+                    </Button>
+                    <Button Name="DrawTriangle" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawTriangle,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the command to draw a square."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Polygon Stroke="Black" Fill="Gold">
+                            <Polygon.Points>
+                                <Point X="0" Y="30" />
+                                <Point X="20" Y="0" />
+                                <Point X="38" Y="30" />
+                            </Polygon.Points>
+                        </Polygon>
+                    </Button>
+                    <Button Name="RepeatLoop" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=RepeatLoop,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands for a Repeat Loop."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <TextBlock >REPEAT<LineBreak/>[ ]</TextBlock>
+                    </Button>
+                    <Button Name="WhileLoop" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=WhileLoop,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands for a While Loop."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <TextBlock >WHILE<LineBreak/>[ ]</TextBlock>
+                    </Button>
+                    <Button Name="FunctionCommand" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=FunctionCommand,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands for a user defined function."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <TextBlock FontSize="24" FontStyle="Italic">fx</TextBlock>
+                    </Button>
+                    <Button Name="DrawLine" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawLine,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands to move the turtle drawing if the pen is down."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Line  X1="5" Y1="35" X2="35" Y2="5" StrokeThickness="2" Stroke="Black"  />
+                    </Button>
+                    <Button Name="DrawSpiral" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawSpiral,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert a function to draw a spiral."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Image Height="38" Source="/SilverTurtle;component/Images/spiral_icon.jpg" Stretch="Fill" />
+                    </Button>
+                    <Button Name="DrawCircles" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawCircles,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands to draw a patterns of circles with the turtle animated."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Image Height="32" Width="32" Source="/SilverTurtle;component/Images/circlepattern.jpg" Stretch="Fill" />
+                    </Button>
+                    <Button Name="DrawFlower" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawFlower,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands and function to draw a flower."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Image Height="32" Width="32" Source="/SilverTurtle;component/Images/flower.png" Stretch="Fill" />
+                    </Button>
+                    <Button Name="DrawTree" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawTree,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands and function to draw an animated fractal that looks like a tree."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Image Height="32" Width="32" Source="/SilverTurtle;component/Images/tree.png" Stretch="Fill" />
+                    </Button>
+                    <Button Name="DrawGasket" Margin="0,0,10,0" Width="50">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction  
+                            Command="{Binding AddSnippitCommand}"   
+                            CommandParameter="{Binding ElementName=DrawGasket,Path=Name}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <ToolTipService.ToolTip>
+                            <ToolTip Content="Insert the commands and function to draw a Gasket Fractal."></ToolTip>
+                        </ToolTipService.ToolTip>
+                        <Image Height="32" Width="32" Source="/SilverTurtle;component/Images/gasket.jpg" Stretch="Fill" />
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+    </Grid>
+ 
+</UserControl>

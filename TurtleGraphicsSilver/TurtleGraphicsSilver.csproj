@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{769F580D-3DE8-4F2A-B3BF-4287827F3996}</ProjectGuid>
+    <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TurtleGraphicsSilver</RootNamespace>
+    <AssemblyName>TurtleGraphicsSilver</AssemblyName>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <!-- This property group is only here to support building this project using the 
+       MSBuild 3.5 toolset. In order to work correctly with this older toolset, it needs 
+       to set the TargetFrameworkVersion to v3.5 -->
+  <PropertyGroup Condition="'$(MSBuildToolsVersion)' == '3.5'">
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Browser" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\TurtleGraphics\Canceller.cs">
+      <Link>Canceller.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Constants\Constants.cs">
+      <Link>Constants\Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\CustomAttributes\FunctionChangedEventArgs.cs">
+      <Link>CustomAttributes\FunctionChangedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\CustomAttributes\TurtleGraphicsAttribute.cs">
+      <Link>CustomAttributes\TurtleGraphicsAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Delegates\ClearedEventHandler.cs">
+      <Link>Delegates\ClearedEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Delegates\ColorChangeEventHandler.cs">
+      <Link>Delegates\ColorChangeEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Delegates\ExecutionEngineEventHandler.cs">
+      <Link>Delegates\ExecutionEngineEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Delegates\ExecutionEngineStatusChangedEventHandler.cs">
+      <Link>Delegates\ExecutionEngineStatusChangedEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Delegates\FunctionChangedEventHandler.cs">
+      <Link>Delegates\FunctionChangedEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Delegates\PenStatusEventHandler.cs">
+      <Link>Delegates\PenStatusEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Delegates\PenWidthEventHandler.cs">
+      <Link>Delegates\PenWidthEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Enums\DataType.cs">
+      <Link>Enums\DataType.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Enums\ProcessType.cs">
+      <Link>Enums\ProcessType.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Enums\TurtleGraphicsCommandStatus.cs">
+      <Link>Enums\TurtleGraphicsCommandStatus.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Enums\TurtleGraphicsCommandTypes.cs">
+      <Link>Enums\TurtleGraphicsCommandTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Enums\WellKnownColors.cs">
+      <Link>Enums\WellKnownColors.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\EuclidianShapes\EuclidianPoint.cs">
+      <Link>EuclidianShapes\EuclidianPoint.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\EuclidianShapes\Line.cs">
+      <Link>EuclidianShapes\Line.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\EventArguments\ColorChangeEventArgs.cs">
+      <Link>EventArgs\ColorChangeEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\EventArguments\ExecutionEngineEventArgs.cs">
+      <Link>EventArgs\ExecutionEngineEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\EventArguments\PenStatusEventArgs.cs">
+      <Link>EventArgs\PenStatusEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\EventArguments\PenWidthEventArgs.cs">
+      <Link>EventArgs\PenWidthEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Exceptions\TurtleRuntimeException.cs">
+      <Link>Exceptions\TurtleRuntimeException.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Helpers\ReflectionHelper.cs">
+      <Link>Helpers\ReflectionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Helpers\ResourceHelper.cs">
+      <Link>Helpers\ResourceHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Helpers\StringExtensions.cs">
+      <Link>Helpers\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ICanceller.cs">
+      <Link>Interfaces\ICanceller.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsCommandMatcher.cs">
+      <Link>Interfaces\ITurtleGraphicsCommandMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsControlStructures.cs">
+      <Link>Interfaces\ITurtleGraphicsControlStructures.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsExecutionEngine.cs">
+      <Link>Interfaces\ITurtleGraphicsExecutionEngine.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsFunctionHandler.cs">
+      <Link>Interfaces\ITurtleGraphicsFunctionHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsLexicalAnalyser.cs">
+      <Link>Interfaces\ITurtleGraphicsLexicalAnalyser.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsRuntime.cs">
+      <Link>Interfaces\ITurtleGraphicsRuntime.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsSyntaxAnalyser.cs">
+      <Link>Interfaces\ITurtleGraphicsSyntaxAnalyser.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsSystem.cs">
+      <Link>Interfaces\ITurtleGraphicsSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\ITurtleGraphicsSystemEvents.cs">
+      <Link>Interfaces\ITurtleGraphicsSystemEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Interfaces\IVariableHandler.cs">
+      <Link>Interfaces\IVariableHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Maths\ExpressionComparer.cs">
+      <Link>Maths\ExpressionComparer.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Maths\MathsHelper.cs">
+      <Link>Maths\MathsHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\Resources\ErrorMessageStrings.Designer.cs">
+      <Link>Resources\ErrorMessageStrings.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsBlockCommand.cs">
+      <Link>TurtleGraphicsBlockCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsCommand.cs">
+      <Link>TurtleGraphicsCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsDoFunctionCommand.cs">
+      <Link>TurtleGraphicsDoFunctionCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsExecutionEngine.cs">
+      <Link>TurtleGraphicsExecutionEngine.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsFunctionCommand.cs">
+      <Link>TurtleGraphicsFunctionCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsIfCommand.cs">
+      <Link>TurtleGraphicsIfCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsLexicalAnalyser.cs">
+      <Link>TurtleGraphicsLexicalAnalyser.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsReflectionMatcher.cs">
+      <Link>TurtleGraphicsReflectionMatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsRepeatCommand.cs">
+      <Link>TurtleGraphicsRepeatCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsSyntaxAnalyser.cs">
+      <Link>TurtleGraphicsSyntaxAnalyser.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsTerminationCommand.cs">
+      <Link>TurtleGraphicsTerminationCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\TurtleGraphicsWhileCommand.cs">
+      <Link>TurtleGraphicsWhileCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\VirtualMachine\FloatVariableHandler.cs">
+      <Link>VirtualMachine\FloatVariableHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\VirtualMachine\NumericVariableHandler.cs">
+      <Link>VirtualMachine\NumericVariableHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\VirtualMachine\TurtleGraphicsControlStructures.cs">
+      <Link>VirtualMachine\TurtleGraphicsControlStructures.cs</Link>
+    </Compile>
+    <Compile Include="..\TurtleGraphics\VirtualMachine\TurtleGraphicsFunctionHandler.cs">
+      <Link>VirtualMachine\TurtleGraphicsFunctionHandler.cs</Link>
+    </Compile>
+    <Compile Include="CustomAttributes\TurtleGraphicsArgumentAttribute.cs" />
+    <Compile Include="EventArgs\ExecutionStatusChangedEventArgs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\TurtleGraphics\Resources\ErrorMessageStrings.resx">
+      <Link>Resources\ErrorMessageStrings.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
+        <SilverlightProjectProperties />
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
